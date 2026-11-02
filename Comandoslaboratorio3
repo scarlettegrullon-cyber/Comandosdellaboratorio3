@@ -1,0 +1,72 @@
+Laboratorio 3
+
+Práctica 1
+whoami
+id
+groups
+getent group
+getent group wheel
+sudo groupadd nombre_grupo
+sudo useradd nombre_usuario
+sudo passwd nombre_usuario
+sudo usermod -aG nombre_grupo nombre_usuario
+sudo usermod -aG wheel 2026-1117
+id 2026-1117
+groups 2026-1117
+sudo visudo
+%wheel ALL=(ALL) ALL
+sudo visudo -c
+sudo whoami
+sudo -l
+
+Práctica 2
+backup.sh
+nano backup.sh
+#!/bin/bash
+
+USUARIO=$(whoami)
+FECHA=$(date +"%d-%m-%Y:%H:%M")
+DESTINO="/home/$USUARIO/backup-$FECHA.tar.gz"
+
+tar -czvf "$DESTINO" "/home/$USUARIO"
+
+echo "Backup creado correctamente: $DESTINO"
+chmod +x backup.sh
+./backup.sh
+ls -lh /home/$USER
+interfaces.sh
+nano interfaces.sh
+#!/bin/bash
+
+ESCRITORIO=$(xdg-user-dir DESKTOP)
+
+echo "¿Qué nombre desea ponerle al archivo?"
+read NOMBRE
+
+ifconfig > "$ESCRITORIO/$NOMBRE.txt"
+
+echo "Archivo creado correctamente en el escritorio."
+chmod +x interfaces.sh
+./interfaces.sh
+sudo dnf install net-tools -y
+ls -l "$(xdg-user-dir DESKTOP)"
+
+Práctica 3
+ip a
+hostname -I
+ip route
+ping -c 4 8.8.8.8
+sudo dnf install openssh-server -y
+sudo systemctl enable --now sshd
+sudo systemctl status sshd
+sudo firewall-cmd --permanent --add-service=ssh
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-services
+Desde Windows (CMD)
+ping 10.0.0.107
+ssh 2026-1117@10.0.0.107
+ssh-keygen -t ed25519
+Desde Windows (PowerShell)
+type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh 2026-1117@10.0.0.107 "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
+Probar la conexión SSH desde Windows
+ssh 2026-1117@10.0.0.107
